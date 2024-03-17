@@ -9,9 +9,7 @@ class Point:
 def midPoint(p1:Point, p2:Point) -> Point:
     return Point((p1.x+p2.x)/2, (p1.y+p2.y)/2)
 
-
-
-def bezier(arrBez:List[Point], currentIterations:int, wantedIterations:int) -> Optional[Point]:
+def bezierDNC(arrBez:List[Point], currentIterations:int, wantedIterations:int) -> Optional[Point]:
     if (currentIterations < wantedIterations):
         # declare var dan masukkan bahan iterasi selanjutnya dengan midpoint2 tertentu
         arrBezRes:List[Point] = []
@@ -21,14 +19,14 @@ def bezier(arrBez:List[Point], currentIterations:int, wantedIterations:int) -> O
         arrBezNew.append(midPoint(arrBezNew[0], arrBezNew[1]))
 
         iterate1 = [arrBez[0], arrBezNew[0], arrBezNew[2]]
-        arrTemp1:Optional[Point] = bezier(iterate1, currentIterations+1, wantedIterations)
+        arrTemp1:Optional[Point] = bezierDNC(iterate1, currentIterations+1, wantedIterations)
         if arrTemp1 != None:
             arrBezRes = arrBezRes + arrTemp1
 
         arrBezRes.append(arrBezNew[2])
         
         iterate2 = [arrBezNew[2], arrBezNew[1], arrBez[2]]
-        arrTemp2:Optional[Point] = bezier(iterate2, currentIterations+1, wantedIterations)
+        arrTemp2:Optional[Point] = bezierDNC(iterate2, currentIterations+1, wantedIterations)
         if arrTemp2 != None:
             arrBezRes = arrBezRes + arrTemp2
 
@@ -48,7 +46,7 @@ for i in range(3):
     yOrigin.append(y)
     arrBezIt.append(Point(x, y))
 arrbezRes.append(arrBezIt[0])
-arrbezRes = arrbezRes + bezier(arrBezIt, 0, 10)
+arrbezRes = arrbezRes + bezierDNC   (arrBezIt, 0, 10)
 arrbezRes.append(arrBezIt[len(arrBezIt)-1])
 xlist: List[float] = []
 ylist: List[float] = []
