@@ -39,19 +39,26 @@ def bezier(arrBez:List[Point], currentIterations:int, wantedIterations:int) -> O
 
 arrBezIt = []
 arrbezRes = []
+xOrigin: List[float] = []
+yOrigin: List[float] = []
 for i in range(3):
     x = float(input(f"masukkan x{i+1}: "))
     y = float(input(f"masukkan y{i+1}: "))
+    xOrigin.append(x)
+    yOrigin.append(y)
     arrBezIt.append(Point(x, y))
 arrbezRes.append(arrBezIt[0])
-arrbezRes = arrbezRes + bezier(arrBezIt, 0, 2)
+arrbezRes = arrbezRes + bezier(arrBezIt, 0, 10)
 arrbezRes.append(arrBezIt[len(arrBezIt)-1])
 xlist: List[float] = []
 ylist: List[float] = []
 for i in arrbezRes:
     xlist.append(i.x)
     ylist.append(i.y)
+
 plt.plot(xlist, ylist)
+plt.plot(xOrigin, yOrigin)
+plt.legend(["Hasil Via Divide and Conquer", "Titik Aseli"])
 plt.show()
 # print(xlist)
 # print(ylist)
