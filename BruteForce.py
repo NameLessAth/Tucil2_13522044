@@ -8,13 +8,20 @@ class Point:
 def midPoint(p1:Point, p2:Point) -> Point:
     return Point((p1.x+p2.x)/2, (p1.y+p2.y)/2)
 
+def bagiBezierBF(arrBez: List[Point], t:int):
+    if (len(arrBez) > 2):
+        arrLerp:List[Point] = []
+        for i in range(len(arrBez)-1):
+            arrLerp.append(Point(((0.01*t)*arrBez[i].x + (1-(0.01*t))*arrBez[i+1].x), ((0.01*t)*arrBez[i].y + (1-(0.01*t))*arrBez[i+1].y)))
+        return bagiBezierBF(arrLerp, t)
+    else:
+        return Point(((0.01*t)*arrBez[0].x + (1-(0.01*t))*arrBez[1].x), ((0.01*t)*arrBez[0].y + (1-(0.01*t))*arrBez[1].y))
+        
+
 def bezierBF(arrBez: List[Point]):
     arrBezRes:List[Point] = []
     for t in range(101):
-        lerp1 = Point(((0.01*t)*arrBez[0].x + (1-(0.01*t))*arrBez[1].x), ((0.01*t)*arrBez[0].y + (1-(0.01*t))*arrBez[1].y))
-        lerp2 = Point(((0.01*t)*arrBez[1].x + (1-(0.01*t))*arrBez[2].x), ((0.01*t)*arrBez[1].y + (1-(0.01*t))*arrBez[2].y))
-        lerp3 = Point(((0.01*t)*lerp1.x + (1-(0.01*t))*lerp2.x), ((0.01*t)*lerp1.y + (1-(0.01*t))*lerp2.y))
-        arrBezRes.append(lerp3)
+        arrBezRes.append(bagiBezierBF(arrBez, t))
     return arrBezRes
 
 
@@ -22,7 +29,7 @@ def bezierBF(arrBez: List[Point]):
 # arrbezRes = []
 # xOrigin: List[float] = []
 # yOrigin: List[float] = []
-# for i in range(3):
+# for i in range(5):
 #     x = float(input(f"masukkan x{i+1}: "))
 #     y = float(input(f"masukkan y{i+1}: "))
 #     xOrigin.append(x)
