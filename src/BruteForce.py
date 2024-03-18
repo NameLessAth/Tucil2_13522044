@@ -1,5 +1,4 @@
 from typing import List
-import matplotlib.pyplot as plt
 
 class Point:
     def __init__(self, x:float, y:float):

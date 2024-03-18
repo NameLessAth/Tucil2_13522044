@@ -1,6 +1,5 @@
 from typing import List
 from typing import Optional
-import matplotlib.pyplot as plt
 
 class Point:
     def __init__(self, x:float, y:float):

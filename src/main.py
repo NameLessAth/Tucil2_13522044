@@ -1,6 +1,7 @@
 from DivideNConquer import *
 from BruteForce import *
-
+import matplotlib.pyplot as plt
+import time
 
 print("===BEZIER CALCULATOR===")
 print("program untuk membandingkan algoritma Divide and Conquer dengan Brute Force")
@@ -30,11 +31,15 @@ for i in range(jumlPoint):
     yOrigin.append(y)
     arrBezIt.append(Point(x, y))
 
-
+startBF = time.perf_counter()
 resBF : List[Point] = bezierBF(arrBezIt, itrTimesBF)
+endBF = time.perf_counter()
+
+startDNC = time.perf_counter()
 resDNC : List[Point] = [arrBezIt[0]]
 resDNC = resDNC + bezierDNC(arrBezIt, 0, itrTimes)
 resDNC.append(arrBezIt[len(arrBezIt)-1])
+endDNC = time.perf_counter()
 
 xBF: List[float] = []; yBF: List[float] = []
 for i in resBF:
@@ -61,5 +66,8 @@ axes[2].plot(xBF, yBF, marker='o', markersize=1)
 axes[0].legend(["Titik Aseli", "Algoritma Brute Force", "Algoritma Divide n Conquer"])
 axes[1].legend(["Titik Aseli", "Algoritma Divide n Conquer"])
 axes[2].legend(["Titik Aseli", "Algoritma Brute Force"])
+
+print(f"Waktu yang dibutuhkan untuk menghitung kurva bezier dengan algoritma Divide and Conquer: {endDNC-startDNC} sekon")
+print(f"Waktu yang dibutuhkan untuk menghitung kurva bezier dengan algoritma Brute Force: {endBF-startBF} sekon")
 
 plt.show()
