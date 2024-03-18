@@ -12,16 +12,16 @@ def bagiBezierBF(arrBez: List[Point], t:int):
     if (len(arrBez) > 2):
         arrLerp:List[Point] = []
         for i in range(len(arrBez)-1):
-            arrLerp.append(Point(((0.01*t)*arrBez[i].x + (1-(0.01*t))*arrBez[i+1].x), ((0.01*t)*arrBez[i].y + (1-(0.01*t))*arrBez[i+1].y)))
+            arrLerp.append(Point((t*arrBez[i].x + (1-t)*arrBez[i+1].x), (t*arrBez[i].y + (1-t)*arrBez[i+1].y)))
         return bagiBezierBF(arrLerp, t)
     else:
-        return Point(((0.01*t)*arrBez[0].x + (1-(0.01*t))*arrBez[1].x), ((0.01*t)*arrBez[0].y + (1-(0.01*t))*arrBez[1].y))
+        return Point((t*arrBez[0].x + (1-t)*arrBez[1].x), (t*arrBez[0].y + (1-t)*arrBez[1].y))
         
 
-def bezierBF(arrBez: List[Point]):
+def bezierBF(arrBez: List[Point], itrTimes: int):
     arrBezRes:List[Point] = []
-    for t in range(101):
-        arrBezRes.append(bagiBezierBF(arrBez, t))
+    for t in range(itrTimes+1):
+        arrBezRes.append(bagiBezierBF(arrBez, (1/itrTimes)*t))
     return arrBezRes
 
 
